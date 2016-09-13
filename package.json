@@ -18,5 +18,8 @@
   "homepage": "https://github.com/kodokojo/kodokojo-mocks#readme",
   "dependencies": {
     "restify": "^4.1.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2"
   }
 }
