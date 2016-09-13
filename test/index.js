@@ -7,15 +7,15 @@ var mockServer = require('../lib/index.js');
 
 describe('Server', function() {
   describe('Run', function() {
-    it('Should start and return server state', function() {
+    it('Should start and return server state ready', function() {
       var server = new mockServer({
         port: 8090,
         logs: false
       });
       return server.start().then(function(state){
-          expect(server.state).to.be.an('object');
-          expect(server.state).to.include.keys('ready');
-          expect(server.state.ready).to.be.true;
+          expect(state).to.be.an('object');
+          expect(state).to.include.keys('ready');
+          expect(state.ready).to.be.true;
       })
     });
   });
