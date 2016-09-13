@@ -24,9 +24,9 @@ describe('Server', function() {
     it('Should read and parse config file', function() {
       var server = new mockServer(__dirname+"/test_config.json");
       return server.start().then(function(state){
-          expect(state).to.be.an('object');
-          expect(state).to.include.keys('ready');
-          expect(state.ready).to.be.true;
+          expect(server.config).to.be.an('object');
+          expect(server.config.routes).to.be.an('array');
+          expect(server.config.routes).to.deep.include({"path":"/user","method":"POST","mockType":"raw","serve":"0821b5c16a367e5df4044b183af3f0d18235d832"});
       })
     });
   });
