@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kodokojo/kodokojo-mocks#readme",
   "dependencies": {
+    "async": "^2.0.1",
     "bluebird": "^3.4.6",
     "restify": "^4.1.1"
   },
