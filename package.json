@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kodokojo/kodokojo-mocks/issues"
   },
-  "homepage": "https://github.com/kodokojo/kodokojo-mocks#readme"
+  "homepage": "https://github.com/kodokojo/kodokojo-mocks#readme",
+  "dependencies": {
+    "restify": "^4.1.1"
+  }
 }
