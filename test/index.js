@@ -10,7 +10,11 @@ describe('Server', function() {
     it('Should start and return server state ready', function() {
       var server = new mockServer({
         port: 8090,
-        logs: false
+        logs: false,
+        routes: [
+          {path:'/user', method: 'POST', mockType: 'raw', serve:'0821b5c16a367e5df4044b183af3f0d18235d832'},
+          {path:'/user', method: 'GET', mockType: 'file', serve: 'user.get.json'}
+        ]
       });
       return server.start().then(function(state){
           expect(state).to.be.an('object');
