@@ -4,7 +4,7 @@
   "description": "Standalone mock server using nodeJs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha test"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kodokojo/kodokojo-mocks#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "restify": "^4.1.1"
   },
   "devDependencies": {
