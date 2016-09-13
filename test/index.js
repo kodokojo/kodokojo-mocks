@@ -1,4 +1,6 @@
-var assert = require('chai').assert;
+var chai = require('chai');
+var assert = chai.assert;
+var expect = chai.expect;
 
 // server
 var mockServer = require('../lib/index.js');
@@ -7,13 +9,14 @@ describe('Server', function() {
   describe('Run', function() {
     it('Should start and return server state', function() {
       var server = new mockServer({
-        port: 8080
+        port: 8090,
+        logs: false
       });
-      server.start(function(server){
-        expect(server.state).to.be.an('object');
-        expect(server.state).to.include.keys('ready');
-        expect(server.state.ready).to.be.true;
-      });
+      return server.start().then(function(state){
+          expect(server.state).to.be.an('object');
+          expect(server.state).to.include.keys('ready');
+          expect(server.state.ready).to.be.true;
+      })
     });
   });
 });
