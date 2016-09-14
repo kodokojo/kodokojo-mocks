@@ -23,7 +23,7 @@ describe('Server', function() {
   });
   describe('Set config', function() {
     it('Should read and parse config file', function() {
-      var server = new mockServer(__dirname+"/test_config.json");
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
       return server.start().then(function(state){
         expect(server.config).to.be.an('object');
         expect(server.config.routes).to.be.an('array');
@@ -32,7 +32,7 @@ describe('Server', function() {
       });
     });
     it('Should convert routes from config file to restify routes', function() {
-      var server = new mockServer(__dirname+"/test_config.json");
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
       return server.start().then(function(state){
         var recordedPostRoute = server.restifyServer.router.mounts.postapiv1user.spec;
         expect(recordedPostRoute).to.be.an('object');
