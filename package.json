@@ -1,7 +1,7 @@
 {
   "name": "kodokojo-mocks",
   "version": "0.1.0",
-  "description": "Standalone mock server using nodeJs",
+  "description": "Standalone mock server using Restify",
   "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test"
