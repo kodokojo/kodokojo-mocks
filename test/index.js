@@ -9,7 +9,7 @@ describe('Server', function() {
   describe('Run', function() {
     it('Should start and return server state ready', function() {
       var server = new mockServer({
-        port: Math.floor(Math.random() * 9000) + 8000  ,
+        port: Math.floor(Math.random() * 9000) + 8000, // Random port to ensure binding efficiency  
         logs: false,
         routes: []
       });
