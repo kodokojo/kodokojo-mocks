@@ -55,7 +55,7 @@ Config file example :
 
 **port** _: Bind server to the specified port (eg: 8080)_ <br>
 **logs** _: Enable request and error logging_ <br>
-**prefix** _: Prefix path (eg: _http://localhost:8080 **/api/v1/**..._)_ <br>
+**prefix** _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
 **path** _: Relative or absolute path to mocks folder_ <br>
 **routes** _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
 
