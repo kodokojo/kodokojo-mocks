@@ -43,8 +43,8 @@ Config file example :
 {
   "port":8080,
   "logs":false,
-  "prefix": "api/v1", // prefix path (eg: localhost:8080/api/v1/...)
-  "path": "./mocks", // relative or absolute path to mocks folder
+  "prefix": "api/v1",
+  "path": "./mocks",
   "routes":[
     {"path":"/user","method":"POST","mockType":"raw","serve":"123"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},
