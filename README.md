@@ -10,7 +10,7 @@ Kodokojo-mocks is an initiative from <a href="https://github.com/kodokojo">Kodok
 </br>
 </br>
 
-<b>Standalone mocking server using Restify written in JavaScript</b>
+<b>Standalone mocking server using Restify</b>
 
 </br>
 </br>
@@ -53,14 +53,14 @@ Config file example :
 }
 ```
 
-**port** _: Bind mocks server to the specified port (eg: 8080)_ <br>
+**port** _: Bind server to the specified port (eg: 8080)_ <br>
 **logs** _: Enable request and error logging_ <br>
 **prefix** _: Prefix path (eg: _http://localhost:8080 **/api/v1/**..._)_ <br>
 **path** _: Relative or absolute path to mocks folder_ <br>
 **routes** _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
 
 
-Have a look at ./test/index.js.
+Have a look at ./test/index.js to see some examples.
 
 ## Create your mocks
 
