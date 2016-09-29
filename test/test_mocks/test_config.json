@@ -2,7 +2,7 @@
   "port":8075,
   "logs":false,
   "prefix": "api/v1",
-  "path": "mocks",
+  "path": "test/test_mocks",
   "routes":[
     {"path":"/user","method":"POST","mockType":"raw","serve":"0821b5c16a367e5df4044b183af3f0d18235d832"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},

@@ -1,5 +1,5 @@
 var chai = require('chai');
-var assert = chai.assert;
+var request = require('request');
 var expect = chai.expect;
 
 // server
@@ -42,5 +42,51 @@ describe('Server', function() {
         server.close();
       });
     });
+  });
+  describe('Mock Serve', function() {
+
+    it('Should serve an ID', function(done) {
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
+        server.start().then(function(state){
+         request.post({
+           url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+server.config.routes[0].path
+         }, function(error, response, body){
+           expect(error).to.be.null;
+           expect(body).to.equal(server.config.routes[0].serve);
+           server.close();
+           done();
+         });
+      });
+    });
+    it('Should serve a user object based on a given ID', function(done) {
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
+      server.start().then(function(state){
+        request.get({
+          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+(server.config.routes[1].path.replace(':id','1'))
+        }, function(error, response, body){
+          var data = JSON.parse(body);
+          expect(error).to.be.null;
+          expect(Object.keys(data).length).to.equal(10);
+          server.close();
+          done();
+        });
+      });
+    });
+    it('Should serve "some data" depending on a given good token', function(done) {
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
+      server.start().then(function(state){
+        request.get({
+          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+(server.config.routes[2].path.replace(':token','goodtoken'))
+        }, function(error, response, body){
+          var data = JSON.parse(body);
+          expect(error).to.be.null;
+          expect(data).to.be.an('object');
+          expect(data.data).to.equal('some data');
+          server.close();
+          done();
+        });
+      });
+    });
+
   });
 });
