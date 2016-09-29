@@ -31,11 +31,11 @@ $ npm install kodokojo-mocks --save-dev
 
 Then create a folder to store your mock files
 
-eg: ./mocks
+eg: {your_project_path}/mocks
 
 Create a config file
 
-eg: ./mocks/config.json
+eg: {your_project_path}/mocks_config.json
 
 Config file example :
 
@@ -44,7 +44,7 @@ Config file example :
   "port":8080,
   "logs":false,
   "prefix": "api/v1",
-  "path": "./mocks",
+  "path": "mocks",
   "routes":[
     {"path":"/user","method":"POST","mockType":"raw","serve":"123"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},
@@ -56,11 +56,36 @@ Config file example :
 **port** _: Bind server to the specified port (eg: 8080)_ <br>
 **logs** _: Enable request and error logging_ <br>
 **prefix** _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
-**path** _: Relative or absolute path to mocks folder_ <br>
+**path** _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
 **routes** _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
 
+## Usage
 
-Have a look at ./test/index.js to see some examples.
+### Inside your module
+
+#### Start
+```javascript
+var MockServer = require('kodokojo-mocks');
+
+var mockServer = new MockServer(__dirname+"/mocks_config.json");
+mockServer.start().then(function(state){
+  console.log(state); // Should display : { ready: true }
+  console.log(server.config); // you can access to parsed configuration
+});
+```
+
+#### Stop
+```javascript
+// ... Server should be started
+mockServer.stop();
+```
+
+### Npm script
+ _Soon_
+
+
+##
+*Have a look at ./test/index.js to see some examples.*
 
 ## Create your mocks
 
