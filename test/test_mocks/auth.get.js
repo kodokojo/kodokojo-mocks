@@ -1,6 +1,5 @@
 exports.controller = function(req, res, next) {
   res.contentType = "application/json";
-
   if( typeof req.params.token !== 'undefined' && req.params.token === 'goodtoken' ) {
     res.send(200, {
       data: 'some data'
@@ -11,6 +10,5 @@ exports.controller = function(req, res, next) {
       error: 'Bad token'
     });
   }
-
   next();
 };

@@ -76,7 +76,7 @@ describe('Server', function() {
       var server = new mockServer(__dirname+"/test_mocks/test_config.json");
       server.start().then(function(state){
         request.get({
-          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+(server.config.routes[2].path.replace(':token','goodtoken'))
+          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+(server.config.routes[3].path.replace(':token','goodtoken'))
         }, function(error, response, body){
           var data = JSON.parse(body);
           expect(error).to.be.null;
@@ -87,6 +87,29 @@ describe('Server', function() {
         });
       });
     });
-
+    it('Should serve "new_username" depending on a given data from a patch request', function(done) {
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
+      server.start().then(function(state){
+        var options = {
+          method: 'PATCH',
+          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+server.config.routes[2].path,
+          headers:
+          {
+            'content-type': 'application/json'
+          },
+          body: {
+            username: "new_username"
+          },
+          json: true
+        };
+        request(options, function(error, response, body){
+          expect(error).to.be.null;
+          expect(body).to.be.an('object');
+          expect(body.username).to.equal('new_username');
+          server.close();
+          done();
+        });
+      });
+    });
   });
 });
