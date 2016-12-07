@@ -7,6 +7,7 @@
     {"path":"/user","method":"POST","mockType":"raw","serve":"0821b5c16a367e5df4044b183af3f0d18235d832"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},
     {"path":"/user","method":"PATCH","mockType":"func","serve":"user.patch.js"},
-    {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"}
+    {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"},
+    {"path":"/visits","method":"GET","mockType":"func","serve":"visits.get.js"}
   ]
 }

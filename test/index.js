@@ -7,44 +7,44 @@ var mockServer = require('../lib/index.js');
 
 describe('Server', function() {
   describe('Run', function() {
-    it('Should start and return server state ready', function() {
+    it('Should start and return server state ready', function(done) {
       var server = new mockServer({
         port: Math.floor(Math.random() * 9000) + 8000, // Random port to ensure binding efficiency  
         logs: false,
-        routes: []
+        routes: [],
+        path: "test/test_mocks"
       });
-      return server.start().then(function(state){
+      server.start().then(function(state){
         expect(state).to.be.an('object');
         expect(state).to.include.keys('ready');
         expect(state.ready).to.be.true;
-        server.close();
+        server.close(done);
       })
     });
   });
   describe('Set config', function() {
-    it('Should read and parse config file', function() {
+    it('Should read and parse config file', function(done) {
       var server = new mockServer(__dirname+"/test_mocks/test_config.json");
-      return server.start().then(function(state){
+      server.start().then(function(state){
         expect(server.config).to.be.an('object');
         expect(server.config.routes).to.be.an('array');
         expect(server.config.routes).to.deep.include({"path":"/user","method":"POST","mockType":"raw","serve":"0821b5c16a367e5df4044b183af3f0d18235d832"});
-        server.close();
+        server.close(done);
       });
     });
-    it('Should convert routes from config file to restify routes', function() {
+    it('Should convert routes from config file to restify routes', function(done) {
       var server = new mockServer(__dirname+"/test_mocks/test_config.json");
-      return server.start().then(function(state){
+      server.start().then(function(state){
         var recordedPostRoute = server.restifyServer.router.mounts.postapiv1user.spec;
         expect(recordedPostRoute).to.be.an('object');
         expect(recordedPostRoute).to.include.keys('path');
         expect(recordedPostRoute.path).to.be.equal('api/v1/user');
         expect(recordedPostRoute.method).to.be.equal('POST');
-        server.close();
+        server.close(done);
       });
     });
   });
   describe('Mock Serve', function() {
-
     it('Should serve an ID', function(done) {
       var server = new mockServer(__dirname+"/test_mocks/test_config.json");
         server.start().then(function(state){
@@ -53,8 +53,7 @@ describe('Server', function() {
          }, function(error, response, body){
            expect(error).to.be.null;
            expect(body).to.equal(server.config.routes[0].serve);
-           server.close();
-           done();
+           server.close(done);
          });
       });
     });
@@ -67,8 +66,7 @@ describe('Server', function() {
           var data = JSON.parse(body);
           expect(error).to.be.null;
           expect(Object.keys(data).length).to.equal(10);
-          server.close();
-          done();
+          server.close(done);
         });
       });
     });
@@ -82,8 +80,7 @@ describe('Server', function() {
           expect(error).to.be.null;
           expect(data).to.be.an('object');
           expect(data.data).to.equal('some data');
-          server.close();
-          done();
+          server.close(done);
         });
       });
     });
@@ -106,8 +103,31 @@ describe('Server', function() {
           expect(error).to.be.null;
           expect(body).to.be.an('object');
           expect(body.username).to.equal('new_username');
-          server.close();
-          done();
+          server.close(done);
+        });
+      });
+    });
+    it('Should add +3 to visits count', function(done) {
+      var server = new mockServer(__dirname+"/test_mocks/test_config.json");
+      server.start().then(function(state){
+        var options = {
+          method: 'GET',
+          url: 'http://localhost:'+server.config.port+'/'+server.config.prefix+server.config.routes[4].path
+        };
+        function doReq(count, max, cb) {
+          if(count<max) {
+            request(options, function(error, response, body){
+              var data = JSON.parse(body);
+              expect(data.count).to.equal(count);
+              doReq(count+1, max, cb)
+            });
+          }
+          else {
+            cb(null);
+          }
+        }
+        doReq(1, 3, function() { // increment 3 visits
+          server.close(done);
         });
       });
     });
