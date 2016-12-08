@@ -9,5 +9,7 @@
     {"path":"/user","method":"PATCH","mockType":"func","serve":"user.patch.js"},
     {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"},
     {"path":"/visits","method":"GET","mockType":"func","serve":"visits.get.js"}
-  ]
+  ],
+  "memoryStorage": true,
+  "persistStorage": true
 }

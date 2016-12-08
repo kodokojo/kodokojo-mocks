@@ -12,7 +12,8 @@ describe('Server', function() {
         port: Math.floor(Math.random() * 9000) + 8000, // Random port to ensure binding efficiency  
         logs: false,
         routes: [],
-        path: "test/test_mocks"
+        path: "test/test_mocks",
+        memoryStorage: true
       });
       server.start().then(function(state){
         expect(state).to.be.an('object');
