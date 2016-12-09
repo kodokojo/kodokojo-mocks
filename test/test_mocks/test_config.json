@@ -10,6 +10,5 @@
     {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"},
     {"path":"/visits","method":"GET","mockType":"func","serve":"visits.get.js"}
   ],
-  "memoryStorage": true,
-  "persistStorage": true
+  "memoryStorage": true
 }

@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/kodokojo">
-    <img width=710px src="https://raw.githubusercontent.com/kodokojo/kodokojo/dev/doc/images/logo-kodokojo-baseline-black1.png">
+    <img width=710px src="https://github.com/kodokojo/kodokojo/raw/master/doc/images/logo-kodokojo-baseline-black1.png">
   </a>
 
 <br/>
@@ -49,15 +49,19 @@ Config file example :
     {"path":"/user","method":"POST","mockType":"raw","serve":"123"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},
     {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"}
-  ]
+  ],
+  "memoryStorage": true,
+  "persistStorage": false
 }
 ```
 
-**port** _: Bind server to the specified port (eg: 8080)_ <br>
-**logs** _: Enable request and error logging_ <br>
-**prefix** _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
-**path** _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
-**routes** _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
+**port** (default: **8080**) _: Bind server to the specified port (eg: 8080)_ <br>
+**logs** (default: **true**) _: Enable request and error logging_ <br>
+**prefix** (default: **""**) _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
+**path** (default: **""**) _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
+**routes** (default: **[]**) _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
+**memoryStorage** (default: **false**) _: Use memory only storage_ <br>
+**persistStorage** (default: **false**) _: Previous storage file are used if `memoryStorage` is **false** else create a new empty storage file_ <br>
 
 ## Usage
 
@@ -119,9 +123,27 @@ You can use a classic ExpressJs controller to serve your data, it's allow you to
 ```
 The mock file (eg: auth.get.js)  should look like this :
 ```
-exports.controller = function(req, res, next) {
+exports.controller = function(req, res, next, server) {
   // Your code here ...
   // Classic ExpressJs api below
+  res.contentType = "application/json";
+  res.send(200, data_to_serve);
+  next();
+};
+```
+
+## Persistence
+A file based (in-memory if `memoryStorage` is true) key-value store is exposed as `server.store` that can be
+used to store and retrieve data in a custom controller.
+```
+exports.controller = function(req, res, next, server) {
+  store.get('visits', function (err, value) {
+    // visits = 0
+    store.put('visits', value+1, function (err) {
+        // visits = 1
+    });
+  });
+
   res.contentType = "application/json";
   res.send(200, data_to_serve);
   next();
@@ -132,3 +154,4 @@ exports.controller = function(req, res, next) {
 Enhanced logs <br>
 Rename type 'file' to 'json' <br>
 rename type 'func' to 'controller' <br>
+Npm script <br>
