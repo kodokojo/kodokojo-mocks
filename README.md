@@ -29,15 +29,15 @@ Kodokojo-mocks is an initiative from <a href="https://github.com/kodokojo">Kodok
 $ npm install kodokojo-mocks --save-dev
 ```
 
-Then create a folder to store your mock files
+**Then create a folder to store your mock files**
 
-eg: {your_project_path}/mocks
+eg: `{your_project_path}/mocks`
 
-Create a config file
+**Create a config file**
 
-eg: {your_project_path}/mocks_config.json
+eg: `{your_project_path}/mocks_config.json`
 
-Config file example :
+**Config file example :**
 
 ```
 {
@@ -61,7 +61,7 @@ Config file example :
 **path** (default: **""**) _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
 **routes** (default: **[]**) _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
 **memoryStorage** (default: **false**) _: Use memory only storage_ <br>
-**persistStorage** (default: **false**) _: Previous storage file are used if `memoryStorage` is **false** else create a new empty storage file_ <br>
+**persistStorage** (default: **false**) _: Previous storage file is used if `memoryStorage` is **false** else create a new empty storage file_ <br>
 
 ## Usage
 
