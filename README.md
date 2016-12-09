@@ -103,7 +103,7 @@ Return the value that you specified in your config file ("serve" property)
 ```
 
 ### Json file content
-Return the content of the given json file, you need to specify the name of your file in the "serve" property
+Return the content of the given json file
 ```
 {... "mockType":"file","serve":"[file_name]"}
 ```
@@ -121,8 +121,8 @@ You can use a classic ExpressJs controller to serve your data, it's allow you to
 ```
 {... "mockType":"func","serve":"[file_name]"}
 ```
-The mock file (eg: auth.get.js)  should look like this :
-```
+Controller example:
+```javascript
 exports.controller = function(req, res, next, server) {
   // Your code here ...
   // Classic ExpressJs api below
@@ -133,9 +133,9 @@ exports.controller = function(req, res, next, server) {
 ```
 
 ## Persistence
-A file based (in-memory if `memoryStorage` is true) key-value store is exposed as `server.store` that can be
+A file based (in-memory if `memoryStorage` is **true**) key-value store is exposed as `server.store` that can be
 used to store and retrieve data in a custom controller.
-```
+```javascript
 exports.controller = function(req, res, next, server) {
   store.get('visits', function (err, value) {
     // visits = 0
