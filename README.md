@@ -26,42 +26,49 @@ Kodokojo-mocks is an initiative from <a href="https://github.com/kodokojo">Kodok
 ## Install
 
 ```bash
-$ npm install kodokojo-mocks --save-dev
+npm install kodokojo-mocks --save-dev
+```
+_or_
+
+```bash
+npm install -g kodokojo-mocks
 ```
 
 **Then create a folder to store your mock files**
 
-eg: `{your_project_path}/mocks`
+e.g: `{your_project_path}/mocks`
 
 **Create a config file**
 
-eg: `{your_project_path}/mocks_config.json`
+e.g: `{your_project_path}/mocks_config.json`
 
 **Config file example :**
 
-```
+```json
 {
-  "port":8080,
+  "port":8075,
   "logs":false,
   "prefix": "api/v1",
-  "path": "mocks",
+  "path": "test/test_mocks",
   "routes":[
-    {"path":"/user","method":"POST","mockType":"raw","serve":"123"},
+    {"path":"/user","method":"POST","mockType":"raw","serve":"0821b5c16a367e5df4044b183af3f0d18235d832"},
     {"path":"/user/:id","method":"GET","mockType":"file","serve":"user.get.json"},
-    {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"}
+    {"path":"/user","method":"PATCH","mockType":"func","serve":"user.patch.js"},
+    {"path":"/auth/:token","method":"GET","mockType":"func","serve":"auth.get.js"},
+    {"path":"/visits","method":"GET","mockType":"func","serve":"visits.get.js"}
   ],
-  "memoryStorage": true,
-  "persistStorage": false
+  "memoryStorage": false,
+  "persistStorage": true
 }
 ```
 
-**port** (default: **8080**) _: Bind server to the specified port (eg: 8080)_ <br>
-**logs** (default: **true**) _: Enable request and error logging_ <br>
-**prefix** (default: **""**) _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
-**path** (default: **""**) _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
-**routes** (default: **[]**) _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
-**memoryStorage** (default: **false**) _: Use memory only storage_ <br>
-**persistStorage** (default: **false**) _: Previous storage file is used if `memoryStorage` is **false** else create a new empty storage file_ <br>
+**`port`** (default: **8080**) _: Bind server to the specified port (eg: 8080)_ <br>
+**`logs`** (default: **true**) _: Enable request and error logging_ <br>
+**`prefix`** (default: **""**) _: Prefix path (eg: http://localhost:8080 **/api/v1/**...)_ <br>
+**`path`** (default: **""**) _: <b>Relative path</b> to mocks folder (from your project root folder, where your package.json was created)_ <br>
+**`routes`** (default: **[]**) _: An array containing the routes you want to mock. ExpressJs format for parameters and paths_ <br>
+**`memoryStorage`** (default: **false**) _: Use memory only storage_ <br>
+**`persistStorage`** (default: **false**) _: Previous storage file is used if `memoryStorage` is **false** else create a new empty storage file_ <br>
 
 ## Usage
 
@@ -84,8 +91,30 @@ mockServer.start().then(function(state){
 mockServer.stop();
 ```
 
-### Npm script
- _Soon_
+### CLI
+
+#### Npm script
+
+To run as a npm script. Add the CLI in your _package.json_
+replace _`{config_file_path}`_  by your config file path.
+ ```
+ { ...
+   "scripts": {
+     "mockserver": "./node_modules/kodokojo-mocks/bin/mockserver.js {config_file_path}"
+   }
+ ... }
+ ```
+ 
+#### Global installation
+
+```bash
+npm install -g kodokojo-mocks
+```
+##### Usage
+replace _`{config_file_path}`_  by your config file path.
+```bash
+mockserver {config_file_path}
+```
 
 
 ##
