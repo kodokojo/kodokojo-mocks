@@ -42,3 +42,7 @@ jspm_packages
 
 #IDE specific
 .idea
+
+# Temporary files
+tmp
+tests/testmocks/tmp

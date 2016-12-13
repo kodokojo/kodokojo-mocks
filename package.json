@@ -4,7 +4,8 @@
   "description": "Standalone mock server using Restify",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test --timeout 15000"
+    "test": "./node_modules/mocha/bin/mocha test --timeout 15000",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha test/index.js"
   },
   "bin": {
     "mockserver": "./bin/mockserver.js"
