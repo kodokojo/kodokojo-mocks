@@ -2,6 +2,7 @@
 'use strict';
 var meow = require('meow');
 var mockServer = require('../lib/index.js');
+var path = require('path');
 
 var templates = {
     usage: 'Usage'+
@@ -16,12 +17,14 @@ var templates = {
 var cli = meow(templates.usage, {
     alias: {}
 });
+
+var onStarted = function(state) {};
+
 //
+
 if(typeof cli.input[0] === 'undefined') {
     console.log('Missing configuration path');
 } else {
-    var server = new mockServer(cli.input[0]);
-    server.start().then(function(state){
-        // console.log(123);
-    })
+    var server = new mockServer(cli.input[0], path.join(__dirname, '../../..'));
+    server.start().then(onStarted)
 }
