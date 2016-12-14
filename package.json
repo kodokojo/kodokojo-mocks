@@ -1,6 +1,6 @@
 {
   "name": "kodokojo-mocks",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Standalone mock server using Restify",
   "main": "lib/index.js",
   "scripts": {
